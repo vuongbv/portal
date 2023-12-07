@@ -1,0 +1,77 @@
+<ng-container>
+  <div
+    *ngIf="root && item.visible !== false"
+    class="layout-menuitem-root-text flex align-items-center h-2rem"
+  >
+
+    <a
+      *ngIf="item.items && item.visible !== false"
+      [attr.href]="item.url"
+      (click)="itemClick($event)"
+      [routerLink]="item.routerLink"
+      routerLinkActive="active-route"
+      [ngClass]="item.class"
+      [attr.target]="item.target"
+      tabindex="0"
+      pRipple
+      class="ml-2"
+    >
+      <!-- <i [ngClass]="item.labelIcon" class="layout-menuitem-icon"></i> -->
+      <i
+      [ngClass]="item.labelIcon"
+      class="layout-menuitem-icon font-bold"
+      style="margin-left: 9px"
+    ></i>
+    <span style="margin-left: 9px">
+      {{ item.label }}
+    </span>
+      <i
+        class="pi pi-fw pi-angle-down layout-submenu-toggler"
+        *ngIf="item.items && item.showCollapse"
+      ></i>
+    </a>
+  </div>
+
+  <a
+    *ngIf="item.routerLink && !item.items && item.visible !== false"
+    (click)="itemClick($event)"
+    [ngClass]="item.class"
+    [routerLink]="item.routerLink"
+    routerLinkActive="active-route"
+    [routerLinkActiveOptions]="item.routerLinkOptions || { exact: true }"
+    [fragment]="item.fragment"
+    [queryParamsHandling]="item.queryParamsHandling"
+    [preserveFragment]="item.preserveFragment"
+    [skipLocationChange]="item.skipLocationChange"
+    [replaceUrl]="item.replaceUrl"
+    [state]="item.state"
+    [queryParams]="item.queryParams"
+    [attr.target]="item.target"
+    tabindex="0"
+    pRipple
+    class="ml-2"
+  >
+    <i [ngClass]="item.icon" class="layout-menuitem-icon abc"></i>
+    <span class="layout-menuitem-text">{{ item.label }}</span>
+    <i
+      class="pi pi-fw pi-angle-down layout-submenu-toggler"
+      *ngIf="item.items && item.showCollapse"
+    ></i>
+  </a>
+
+  <ul
+    *ngIf="item.items && item.visible !== false"
+    [@children]="submenuAnimation"
+  >
+    <ng-template ngFor let-child let-i="index" [ngForOf]="item.items">
+      <li
+        app-menuitem
+        [item]="child"
+        [index]="i"
+        [parentKey]="key"
+        [class]="child.badgeClass"
+        class="ml-2"
+      ></li>
+    </ng-template>
+  </ul>
+</ng-container>

@@ -1,0 +1,54 @@
+<div class="card">
+  <h5>Export Measurements</h5>
+  <div class="flex justify-content-between flex-column sm:flex-row grid  p-fluid">
+    <div class="field col">
+      <label htmlFor="fullname">Start Date</label>
+      <p-calendar [(ngModel)]="startDate"></p-calendar>
+    </div>
+    <div class="field col">
+      <label htmlFor="fullname">End Date</label>
+      <p-calendar [(ngModel)]="endDate"></p-calendar>
+    </div>
+    <!-- <div class="field col">
+      <label htmlFor="data_type">Data type</label>
+
+      <input
+        pInputText
+        [(ngModel)]="dataType"
+        mode="decimal"
+        name="data_type"
+        #data_type="ngModel"
+      />
+      <p-message
+        severity="error"
+        text="Data Type is required"
+        *ngIf="data_type.invalid && data_type.hasError('required')"
+      ></p-message>
+    </div>Tariff Setting
+    <div class="field col">
+      <label htmlFor="fullname">Periodicity</label>
+      <p-dropdown
+        [options]="periodicities"
+        [(ngModel)]="selectedPeriodicted"
+        optionLabel="key"
+        optionValue="value"
+      ></p-dropdown>
+    </div> -->
+    <div class="field col">
+      <label htmlFor="fullname">Device</label>
+      <p-dropdown
+        [options]="devices"
+        [(ngModel)]="selectedDevice"
+        optionLabel="name"
+        optionValue="source_id"
+      ></p-dropdown>
+    </div>
+  </div>
+  <p-button
+    type="button"
+    icon="pi pi-download"
+    styleClass="p-button-text"
+    label="Export Measurements"
+    (click)="exportMeasurements()"
+  ></p-button>
+</div>

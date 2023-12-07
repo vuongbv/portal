@@ -1,0 +1,21 @@
+.application-block {
+  flex-direction: column;
+  align-items: center;
+}
+
+.top-bar-panel {
+  display: flex;
+  align-items: center;
+  color: var(--surface-900);
+  font-size: 1.25rem;
+  font-weight: 150;
+  // width: 200px;
+  border-radius: 12px;
+  margin-right: 242PX;
+  img {
+    height: 1.5rem;
+    //margin-right: 0.5rem;
+  }
+}
+
+

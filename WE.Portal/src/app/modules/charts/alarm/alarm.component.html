@@ -1,0 +1,84 @@
+<!-- <div class="card"> -->
+  <h5>Alarms</h5>
+  <p-scroller
+    [items]="alarms"
+    scrollHeight="440px"
+    [itemSize]="100"
+    (onScroll)="loadData($event)"
+  >
+    <ng-template pTemplate="item" let-alarm let-Options="options">
+      <div class="py-2 border-bottom-2 border-white-alpha-30">
+        <!-- <div
+          class="flex align-items-center justify-content-center font-bold text-gray-900 m-1 px-1 py-1"
+        >
+          <i class="pi pi-bell text-xl text-blue-500"></i>
+        </div> -->
+        <div>
+          <div class="text-s flex justify-content-between mr-2">
+            <div class="flex align-items-center">
+             <div class="pi pi-exclamation-circle icon-warning text-3xl bg-yellow-500 border-circle"></div>
+              <!-- <img
+                class="icon-warning"
+                src="assets/layout/images/warning.png"
+              /> -->
+              <span class="ml-2 dot">{{ alarm.count }}</span>
+              <span class="ml-2">{{ alarm.text }}</span>
+            </div>
+            <div class="flex justify-content-around">
+              <!-- <button
+                class="p-link layout-topbar-menu-button layout-topbar-button ml-2"
+              >
+                <i class="pi pi-angle-down"></i>
+              </button> -->
+              <button
+                class="p-link layout-topbar-menu-button layout-topbar-button ml-2"
+                (click)="opAlarmAction.toggle($event)"
+              >
+                <i class="pi pi-ellipsis-v"></i>
+              </button>
+              <p-overlayPanel
+                #opAlarmAction
+                [showCloseIcon]="false"
+                [style]="{ width: '225px' }"
+              >
+                <div class="flex flex-column" style="flex-direction: column;">
+                  <button
+                    class="p-link layout-topbar-menu-button layout-topbar-button mb-4"
+                    (click)="clearOrAcknowledgedAlarm(alarm.id, 'acknowledged'); opAlarmAction.hide()"
+                  >
+                    <i class="pi pi-bell"></i>
+                    Acknowledge
+                  </button>
+                  <button
+                    class="p-link layout-topbar-menu-button layout-topbar-button mb-3"
+                    (click)="clearOrAcknowledgedAlarm(alarm.id, 'resolved'); opAlarmAction.hide()"
+                  >
+                    <i class="pi pi-times"></i>
+                    Clear
+                  </button>
+                  <app-export-to-excel [tableName]="'Alarm'" [selectionItems]="alarms"></app-export-to-excel>
+                </div>
+              </p-overlayPanel>
+            </div>
+          </div>
+          <!-- <div class="text-xl align-items-center h-4rem w-0rem   flex">-</div> -->
+
+          <div class="align-items-center flex">
+            <img class="mr-1 text-red-400" src="assets/layout/images/Bell.svg"  [ngClass]="{'bell-red': alarm.status=='acknowledged'}">
+            <i class="pi pi-clock"></i>
+            <span class="alarm-detail ml-1">
+              {{ alarm.time | date: "d MMM y HH:mm"}}
+            </span>
+            
+            <i class="pi pi-arrow-right ml-1"></i>
+            
+            <span class="alarm-detail ml-1" style="word-wrap: none !important;">
+              {{ alarm.source.name }} ({{alarm.source.id}})
+            </span>
+            <!-- <span class="alarm-detail ml-1">({{alarm.source.id}})</span> -->
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-scroller>
+<!-- </div> -->

@@ -1,0 +1,33 @@
+.page-title {
+  margin-top: 7px;
+  margin-bottom: 0px;
+  margin-left: 1rem;
+}
+
+.title{
+  display: flex;
+}
+
+.ml-2 {
+  cursor: pointer;
+}
+
+.selectedTabName {
+  //background: rgb(255, 251, 12, 0.6);
+  border-bottom: 5px solid  #4cd07d;
+  //color: #4cd07d;
+  i {
+    color: #4cd07d;
+  }
+  .ml-2 {
+    color: #4cd07d;
+  }
+}
+
+.tabset {
+  display: flex;
+  .tabItem {
+    margin-right: 10px;
+    color: white;
+  }
+}

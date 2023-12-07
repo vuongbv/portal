@@ -1,0 +1,89 @@
+<div class="card p-fluid">
+  <h5>Search</h5>
+  <div class="flex justify-content-between flex-column sm:flex-row grid">
+    <div class="field col">
+      <label htmlFor="user_name">User Name</label>
+      <input
+        pInputText
+        id="user_name"
+        type="text"
+        device_name="ngModel"
+        name="user_name"
+        [(ngModel)]="user_name"
+      />
+    </div>
+    <div class="field col">
+      <label htmlFor="email">Email</label>
+      <input
+        pInputText
+        id="email"
+        type="text"
+        email="ngModel"
+        name="device_id"
+        [(ngModel)]="email"
+      />
+    </div>
+    <div class="field col">
+      <label htmlFor="start_date">Start Date</label>
+      <p-calendar
+        [(ngModel)]="start_date"
+        start_date="ngModel"
+        name="start_date"
+      ></p-calendar>
+    </div>
+    <div class="field col">
+      <label htmlFor="end_date">End Date</label>
+      <p-calendar
+        [(ngModel)]="end_date"
+        end_date="ngModel"
+        name="end_date"
+      ></p-calendar>
+    </div>
+  </div>
+  <div class="flex justify-content-between flex-wrap">
+    <div class="flex align-items-center w-4">
+      <button
+        pButton
+        pRipple
+        label="Search"
+        icon="pi pi-search"
+        class="p-button-primary w-4 mr-2"
+        (click)="onSearch()"
+      ></button>
+    </div>
+  </div>
+</div>
+
+<p-table
+  [value]="auditLogins"
+  [paginator]="true"
+  [rows]="10"
+  [lazy]="true"
+  (onLazyLoad)="loadData($event)"
+  [showCurrentPageReport]="true"
+  [totalRecords]="total"
+  responsiveLayout="scroll"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  [rowsPerPageOptions]="[10, 25, 50]"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="UserName">
+        User Name <p-sortIcon field="UserName"></p-sortIcon>
+      </th>
+      <th pSortableColumn="Email">
+        Email<p-sortIcon field="Email"></p-sortIcon>
+      </th>
+      <th pSortableColumn="LoginTime">
+        Login Time <p-sortIcon field="LoginTime"></p-sortIcon>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-login>
+    <tr>
+      <td>{{ login.user_name }}</td>
+      <td>{{ login.email }}</td>
+      <td>{{ login.login_time | date : "dd-MM-yyyy HH:mm" }}</td>
+    </tr>
+  </ng-template>
+</p-table>

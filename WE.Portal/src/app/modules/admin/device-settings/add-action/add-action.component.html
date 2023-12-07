@@ -1,0 +1,84 @@
+<form>
+  <div class="flex justify-content-between flex-column sm:flex-row grid">
+    <div class="field lg:col-4 md:col md:col">
+      <label htmlFor="actiontype">Action type</label>
+      <p-dropdown
+        [options]="actiontype"
+        [(ngModel)]="action.type"
+        name="type"
+        optionLabel="key"
+        optionValue="value"
+      ></p-dropdown>
+    </div>
+    <div class="field lg:col-4 md:col">
+      <label htmlFor="Description">Description</label>
+      <input
+        pInputText
+        [(ngModel)]="action.description"
+        name="description"
+        #description="ngModel"
+        required
+      />
+
+      <p-message
+        severity="error"
+        text="Description name is required"
+        *ngIf="
+          description.touched &&
+          description.invalid &&
+          description.hasError('required')
+        "
+      ></p-message>
+    </div>
+
+    <div class="field lg:col-4 md:col">
+      <label htmlFor="SeverityType">Severity Type</label>
+      <p-dropdown
+        [options]="severitytype"
+        [(ngModel)]="action.severity_type"
+        name="SeverityType"
+        optionLabel="key"
+        optionValue="value"
+      ></p-dropdown>
+    </div>
+
+    <div class="field lg:col-4 md:col">
+      <label>Recipient</label>
+
+      <input
+        pInputText
+        [(ngModel)]="action.recipient"
+        name="Recipient"
+        #recipient="ngModel"
+        required
+      />
+    </div>
+
+    <div class="field lg:col-4 md:col">
+      <label htmlFor="alarm_type">Alarm Type</label>
+
+      <input
+        pInputText
+        [(ngModel)]="action.alarm_type"
+        name="alarm_type"
+        #alarm_type="ngModel"
+      />
+    </div>
+
+    <div class="field lg:col-4 md:col">
+      <label htmlFor="alarm_type">Frequency (minutes)</label>
+      <p-inputNumber
+        [(ngModel)]="action.frequency"
+        mode="decimal"
+        [useGrouping]="false"
+        name="frequency"
+        #frequency="ngModel"
+      >
+      </p-inputNumber>
+    </div>
+
+    <!-- <div class="p-dialog-footer">
+            <button pButton pRipple label="Remove" class="mr-2 mb-2" (click)="remove()"></button>
+        </div> -->
+  </div>
+</form>

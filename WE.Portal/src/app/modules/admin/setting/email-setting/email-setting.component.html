@@ -1,0 +1,102 @@
+<form
+  (ngSubmit)="emailForm.form.valid && save()" (keydown.enter)="$event.preventDefault()"
+  #emailForm="ngForm"
+  novalidate
+>
+  <div class="card p-fluid">
+    <div class="field">
+      <label htmlFor="name1">Name</label>
+      <input
+        pInputText
+        id="name1"
+        #name="ngModel"
+        name="name"
+        [(ngModel)]="email.list_name"
+        type="text"
+        maxlength="50"
+        required
+      />
+      <p-message
+        severity="error"
+        text="Name is required"
+        *ngIf="
+          (name.touched || emailForm.submitted) &&
+          name.invalid &&
+          name.hasError('required')
+        "
+      ></p-message>
+    </div>
+    <div class="field">
+      <label htmlFor="name1">Type</label>
+      <p-dropdown
+        [options]="recepientTypes"
+        [(ngModel)]="email.type"
+        placeholder="Select a type"
+        #type="ngModel"
+        name="status"
+        optionValue="value"
+        optionLabel="key"
+      ></p-dropdown>
+
+      <p-message
+        severity="error"
+        text="Type is required"
+        *ngIf="
+          (type.touched || emailForm.submitted) &&
+          type.invalid &&
+          type.hasError('required')
+        "
+      ></p-message>
+    </div>
+    <div class="field">
+      <div class="col-8"><label htmlFor="name1">Recepient</label></div>
+      <div class="col-4">
+        <button
+          pButton
+          pRipple
+          class="p-button-text"
+          type="button"
+          icon="pi pi-plus"
+          (click)="onAddRow()"
+        ></button>
+      </div>
+      <div *ngFor="let item of email.recepient; let i = index" class="grid">
+        <div class="col-8">
+          <input
+            pInputText
+            type="text"
+            [value]="item"
+            (input) ="onChangeRecepiet($event,i)"
+            [name]="'recepient' + i"
+          />
+        </div>
+        <div class="col-2">
+          <button
+            pButton
+            icon="pi pi-trash"
+            type="button"
+            style="margin-right: 0.5em"
+            (click)="onRemove(i)"
+          ></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="p-dialog-footer">
+    <button
+      pButton
+      pRipple
+      label="Save"
+      class="mr-2 mb-2"
+      type="submit"
+    ></button>
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="Cancel"
+      (click)="ref.close()"
+      class="p-button-secondary mr-2 mb-2"
+    ></button>
+  </div>
+</form>

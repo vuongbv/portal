@@ -1,0 +1,229 @@
+<h4 *ngIf="tennant == 'Watsons'" class="page-title">
+  <img class="dashboard-title-logo" src="assets/layout/images/dashboard-white.svg">
+  <span class="ml-2">Home</span>
+</h4>
+<div class="grid" *ngIf="tennant == 'Watsons'">
+  <div class="col-12 lg:col-12 xl:col-12 ">
+    <p-selectButton
+      [options]="optionsTime"
+      [(ngModel)]="selectedTime"
+      optionLabel="name"
+      optionValue="value"
+      (onChange)="onTimeChange()"
+    ></p-selectButton>
+  </div>
+
+  <div class="col-12 lg:col-2 xl:col-2">
+    <div class="card mb-4">
+      <h5>Current Power Usage</h5>
+      <div class="grid formgrid">
+        <div class="col-12 mb-12 lg:col-12 lg:mb-2">
+          <span class="h4">{{ data.total_power }}</span>
+          <span class="subtitle-1">kW</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-4">
+      <h5>voltage</h5>
+      <div class="grid formgrid">
+        <div class="col-12 mb-2 lg:col-4 lg:mb-2">
+          <span class="h4">{{ data.avg_voltage }}</span>
+          <span class="subtitle-1">V</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h5>Current</h5>
+      <div class="grid formgrid">
+        <div class="col-12 mb-2 lg:col-4 lg:mb-2">
+          <span class="h4">{{ data.avg_current }}</span>
+          <span class="subtitle-1">A</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 lg:col-7 xl:col-7">
+    <div class="card">
+      <div class="flex justify-content-between flex-wrap">
+        <h5>Estimated Savings</h5>
+        <div class="flex justify-content-end flex-wrap">
+          <p-dropdown
+            class="right-0"
+            [options]="optionsTime"
+            [(ngModel)]="SelectTimeSaving"
+            optionLabel="name"
+            optionValue="value"
+            (onChange)="onChangeTimeSaving()"
+          ></p-dropdown>
+        </div>
+      </div>
+
+      <div class="grid formgrid">
+        <div class="col-12">
+          <!-- <app-gauge-chart></app-gauge-chart> -->
+          <app-bar-chart
+            [Series]="estimatedSavingData"
+            [catalogs]="estimatedSavingCategories"
+          ></app-bar-chart>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 lg:col-6 xl:col-3">
+    <app-alarm></app-alarm>
+  </div>
+
+  <div class="col-12 xl:col-6">
+    <div class="card mb-2">
+      <div class="flex justify-content-between flex-wrap">
+        <h5>Energy Comsumption Trends</h5>
+        <div class="flex justify-content-end flex-wrap">
+          <p-dropdown
+            [options]="optionsTime"
+            [(ngModel)]="SelectTimeTrends"
+            optionLabel="name"
+            optionValue="value"
+            (onChange)="onChangeTimeTrends()"
+          ></p-dropdown>
+        </div>
+      </div>
+      <app-line-chart
+        [Series]="powerData"
+        [catalogs]="powerDataCategories"
+      ></app-line-chart>
+    </div>
+  </div>
+
+  <div class="col-12 xl:col-6">
+    <div class="card mb-2">
+      <div class="flex justify-content-between flex-wrap">
+        <h5>Comparison of Power Usage</h5>
+        <div class="flex justify-content-end flex-wrap">
+          <p-dropdown
+            class="right-0"
+            [options]="optionsTime"
+            [(ngModel)]="SelectTimeCompare"
+            optionLabel="name"
+            optionValue="value"
+            (onChange)="onChangeTimeCompare()"
+          ></p-dropdown>
+        </div>
+      </div>
+
+      <app-bar-chart
+        [Series]="compagePowerData"
+        [catalogs]="powerCompageCategories"
+      ></app-bar-chart>
+    </div>
+  </div>
+</div>
+<div *ngIf="tennant != 'Watsons'">
+  <!-- <div class="col-12 lg:col-6 xl:col-3 ">
+    <div class="card mb-0 h-13rem">
+      <h5>This Month Total Power Usage</h5>
+      <div class="grid formgrid">
+        <div class="col-12 mb-12 lg:col-12 lg:mb-0">
+          <span class="h4 text-green-400">{{ data.total_power }} kWH</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 lg:col-6 xl:col-3 ">
+    <div class="card h-13rem">
+      <h5>Current Month Potential Saving</h5>
+      <div class="grid formgrid">
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0 flex">
+          <span class="h4 text-green-400"
+            >${{ data.current_potential_saving }}</span
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 lg:col-6 xl:col-3 ">
+    <div class="card mb-0 h-13rem">
+      <h5>Total Potential Saving</h5>
+      <div class="grid formgrid">
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0 flex">
+          <span class="h4 text-green-400"
+            >${{ data.current_potential_saving }}</span
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 lg:col-6 xl:col-3">
+    <div class="card mb-0 h-13rem">
+      <h5>Current Weather</h5>
+      <div class="grid formgrid">
+        <div class="col-12 mb-2 lg:col-4 lg:mb-0">
+          <img src="assets/sun.png" alt="Sakai logo" style="width: 50px" />
+        </div>
+        <div class="col-12 mb-4 lg:col-6 lg:mb-0">
+          <div class="text-900 font-medium">CLEAR SKY</div>
+          <div class="text-900 font-medium">35.0 C/ 25.0 C</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 xl:col-8">
+    <div class="card  h-36rem">
+      <app-map [centroid]="options" [markers]="options.bounds"></app-map>
+    </div>
+  </div>
+
+  <div class="col-6 xl:col-4">
+    <div class="card h-17rem">
+      <app-all-device-status></app-all-device-status>
+    </div>
+    <div class="card h-17rem overflow-y" >
+      <app-alarm></app-alarm>
+    </div>
+  </div>
+
+  <div class="col-6 xl:col-6" *ngIf="reportConfig0">
+    <div class="card mb-2">
+      <h5>Previous Day: Top 10 Batteries Draining Rate</h5>
+      <powerbi-report
+        [embedConfig]="reportConfig0"
+        [cssClassName]="'report-container'"
+      >
+      </powerbi-report>
+    </div>
+  </div>
+  <div class="col-6 xl:col-6" *ngIf="reportConfig1">
+    <div class="card mb-2">
+      <h5>Previous Day: Top 10 Power Generated Devices</h5>
+      <powerbi-report
+        [embedConfig]="reportConfig1"
+        [cssClassName]="'report-container'"
+      >
+      </powerbi-report>
+    </div>
+  </div>
+  <div class="col-6 xl:col-6" *ngIf="reportConfig2">
+    <div class="card mb-2">
+      <h5>Next 7 Days Forecast For Power Generated</h5>
+      <powerbi-report
+        [embedConfig]="reportConfig2"
+        [cssClassName]="'report-container'"
+      >
+      </powerbi-report>
+    </div>
+  </div>
+  <div class="col-6 xl:col-6" *ngIf="reportConfig3">
+    <div class="card mb-2">
+      <h5>Last 12 Months For Power Harvested</h5>
+      <powerbi-report
+        [embedConfig]="reportConfig3"
+        [cssClassName]="'report-container'"
+      >
+      </powerbi-report>
+    </div>
+  </div> -->
+  <app-panel></app-panel>
+</div>

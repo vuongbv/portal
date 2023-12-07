@@ -1,0 +1,51 @@
+<h5>Alarm Recepient Manage</h5>
+
+<div class="card">
+  <p-button
+    type="button"
+    icon="pi pi-plus"
+    styleClass="p-button-text"
+    (click)="addNew()"
+  ></p-button>
+  <p-table
+    [value]="alarmRecepient"
+    [paginator]="true"
+    [rows]="10"
+    [totalRecords]="total"
+    [lazy]="true"
+    (onLazyLoad)="lazyLoadTabel($event)"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Recepient</th>
+        <th style="width: 10%">action</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-alarmRecepient>
+      <tr>
+        <td>{{ alarmRecepient.value.list_name }}</td>
+        <td>{{ alarmRecepient.value.type }}</td>
+        <td>{{ alarmRecepient.value.recepient }}</td>
+
+        <td>
+          <p-button
+            type="button"
+            pRipple
+            icon="pi pi-pencil"
+            styleClass="p-button-rounded p-button-text"
+            (click)="edit(alarmRecepient.id)"
+          ></p-button>
+          <p-button
+            type="button"
+            pRipple
+            icon="pi pi-trash"
+            styleClass="p-button-rounded p-button-text p-button-danger"
+            (click)="onDelete(alarmRecepient.id)"
+          ></p-button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

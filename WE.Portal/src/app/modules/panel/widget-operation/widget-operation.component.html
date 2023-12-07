@@ -1,0 +1,100 @@
+<app-title-tooltip
+  [title]="title"
+  [description]="description"
+  [widget_under_title_description] = "widget_under_title_description"
+></app-title-tooltip>
+<form [formGroup]="turnOffForm" (ngSubmit)="submitOnOffForm()">
+  <div class="flex justify-content-between align-items-center mb-3">
+    <label for="name" class="block font-medium mb-2"
+      >Name:
+      <span class="font-medium mb-2 ml-2">{{ deviceName }}</span>
+    </label>
+
+    <p-inputSwitch formControlName="status"></p-inputSwitch>
+  </div>
+  <div class="flex justify-content-between align-items-center mb-3">
+    <label for="fromDate" class="blockfont-medium mb-2">From</label>
+    <p-calendar
+      class="ml-2"
+      inputId="basic"
+      formControlName="fromDate"
+      [readonlyInput]="true"
+      appendTo="body"
+      [dateFormat]="dateFormat"
+      [showTime]="true"
+    ></p-calendar>
+    <label for="endDate" class="block font-medium mb-2 ml-2">To</label>
+    <p-calendar
+      class="ml-2"
+      formControlName="endDate"
+      [minDate]="fc['fromDate'].value"
+      [readonlyInput]="true"
+      inputId="min-max"
+      appendTo="body"
+      [dateFormat]="dateFormat"
+      [showTime]="true"
+    ></p-calendar>
+  </div>
+  <div>
+    <div class="flex justify-content-end mb-3">
+      <button
+        pButton
+        pRipple
+        label="Submit"
+        class="p-2 font-medium"
+        type="submit"
+        (onClick)="submitOnOffForm()"
+        [disabled]="!turnOffForm.valid"
+      ></button>
+    </div>
+  </div>
+</form>
+
+<p-table
+  *ngIf="gtDeviceCommands"
+  [value]="gtDeviceCommands"
+  [paginator]="false"
+  [rows]="10"
+  [totalRecords]="gtDeviceCommands.length"
+  responsiveLayout="scroll"
+  [scrollable]="true"
+  scrollHeight="300px"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Command</th>
+      <th>Execution time</th>
+      <th>Command status</th>
+      <th>Action</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-data>
+    <tr>
+      <td>{{ data.command }}</td>
+      <td>{{ data.execution_time | date : "dd-MM-yyyy HH:mm" }}</td>
+      <td>{{ data.command_status }}</td>
+      <td>
+        <div class="flex">
+          <button
+            *ngIf="data.command_status === 'Processing'"
+            pButton
+            pRipple
+            label="Cancel"
+            class="p-2 font-medium p-button-secondary"
+            type="button"
+            (click)="cancelOperation(data.cno)"
+          ></button>
+          <button
+            *ngIf="data.command_status === 'Processed'"
+            pButton
+            pRipple
+            label="Revoke"
+            class="p-2 font-medium p-button-secondary"
+            type="button"
+            (click)="cancelOperation(data.cno)"
+          ></button>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

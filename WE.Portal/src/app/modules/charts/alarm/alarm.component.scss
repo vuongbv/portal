@@ -1,0 +1,25 @@
+.dot {
+    height: 1.75rem;
+    width: 1.75rem;
+    background-color: rgb(241, 26, 26);
+    border-radius: 50%;
+    display: flex;
+    text-align: center;
+    justify-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .icon-warning {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  .alarm-detail {
+    color: gray;
+    font-size: 0.8rem !important;
+    white-space: nowrap;
+  }
+  .bell-red {
+    filter: invert(41%) sepia(99%) saturate(935%) hue-rotate(85deg) brightness(103%) contrast(117%);
+  }

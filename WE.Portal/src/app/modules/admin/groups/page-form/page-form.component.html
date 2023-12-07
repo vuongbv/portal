@@ -1,0 +1,111 @@
+<form
+  (ngSubmit)="groupForm.form.valid && save()"
+  #groupForm="ngForm"
+  novalidate
+>
+  <div class="card p-fluid">
+    <div class="field">
+      <label htmlFor="name1">Name</label>
+      <input
+        pInputText
+        id="name1"
+        #name="ngModel"
+        name="name"
+        [(ngModel)]="panel.panel_name"
+        type="text"
+        maxlength="50"
+        pattern="^[a-zA-Z0-9 ]*$"
+        required
+      />
+      <p-message
+        severity="error"
+        text="Name is required"
+        *ngIf="
+          (name.touched || groupForm.submitted) &&
+          name.invalid &&
+          name.hasError('required')
+        "
+      ></p-message>
+      <p-message
+        severity="error"
+        text="Name is only number and text"
+        *ngIf="
+          (name.touched || groupForm.submitted) &&
+          name.invalid &&
+          name.hasError('pattern')
+        "
+      ></p-message>
+    </div>
+    <div class="field">
+      <label htmlFor="role1">Role</label>
+
+      <p-multiSelect
+        id="roles1"
+        #roles="ngModel"
+        name="roles"
+        placeholder="Select roles"
+        [options]="LIST_ROLE"
+        [(ngModel)]="panel.roles"
+        optionValue="name"
+        optionLabel="name"
+        [required]="true"
+      ></p-multiSelect>
+      <p-message
+        severity="error"
+        text="role is required"
+        *ngIf="
+          (roles.touched || groupForm.submitted) &&
+          roles.invalid &&
+          roles.hasError('required')
+        "
+      ></p-message>
+    </div>
+    <div class="field">
+      <label htmlFor="description">Group</label>
+      <p-dropdown
+        [options]="groups"
+        [(ngModel)]="panel.group_id"
+        placeholder="Select a group"
+        name="group_id"
+        optionValue="id"
+        optionLabel="name"
+      ></p-dropdown>
+    </div>
+    <div>
+      <h4>Widget</h4>
+      <button
+        pButton
+        pRipple
+        icon="pi pi-plus"
+        type="button"
+        (click)="addWidget()"
+        class="p-button-secondary mr-2 mb-2"
+      ></button>
+      <p-accordion>
+        <p-accordionTab
+          *ngFor="let widget of panel.widgets; let i = index"
+          [header]="widget.widget_name!!"
+        >
+          <app-add-widget [widget]="widget" [widgetTemplates]="widgetTemplates" ></app-add-widget>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+  </div>
+  <div class="p-dialog-footer">
+    <button
+      pButton
+      pRipple
+      label="Save"
+      class="mr-2 mb-2"
+      type="submit"
+    ></button>
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="Cancel"
+      (click)="ref.close()"
+      class="p-button-secondary mr-2 mb-2"
+    ></button>
+  </div>
+</form>

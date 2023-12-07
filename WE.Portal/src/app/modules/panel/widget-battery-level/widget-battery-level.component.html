@@ -1,0 +1,27 @@
+
+  <app-title-tooltip [title]="title" [description]="description" [date]="dateTime"  [widget_under_title_description] = "widget_under_title_description"></app-title-tooltip>
+  <div class="flex justify-content-center h-8rem">
+    <div class="col-6">
+      <app-battery-level [level]="valuePercent"></app-battery-level>
+    </div>
+    <div class="col-6 flex flex-column justify-content-center">
+      <div [style]="{'color': textColor ? textColor : ''}" class="flex align-items-center justify-content-center subtitle-1">
+        <!-- {{ value | number  : formatDecimal }} V -->
+        {{ value | number }} V
+      </div>
+      <!-- <div
+        class="flex align-items-center justify-content-center h8 "
+      >
+        {{ dateTime | date : "dd-MM-yyyy hh:mm" }}
+      </div> -->
+    </div>
+  </div>
+  
+  <div class="flex col-12 justify-content-end mt-2">
+    <span class="flex align-items-center justify-content-center font-normal text-sm">
+      <i class="pi pi-clock"></i> <span class="ml-2 font-normal text-sm text-gray-400">Refreshes every {{data_frequency}} </span>
+    </span>
+    <!-- <span class="flex align-items-center justify-content-center h8">{{
+      dateTime | date : "dd-MM-yyyy HH:mm"
+    }}</span> -->
+  </div>

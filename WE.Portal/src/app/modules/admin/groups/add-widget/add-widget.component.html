@@ -1,0 +1,215 @@
+<form (ngSubmit)="widgetFrorm.form.valid && save()" #widgetFrorm="ngForm">
+  <div class="flex justify-content-between flex-column sm:flex-row grid">
+    <div class="field lg:col-4 md:col md:col">
+      <label htmlFor="source_name"> Name</label>
+
+      <input
+        pInputText
+        [(ngModel)]="widget.widget_name"
+        name="widget_name"
+        #widget_name="ngModel"
+        required
+      />
+
+      <p-message
+        severity="error"
+        text="widget name is required"
+        *ngIf="
+          (widget_name.touched || widgetFrorm.submitted) &&
+          widget_name.invalid &&
+          widget_name.hasError('required')
+        "
+      ></p-message>
+    </div>
+    <div class="field lg:col-4 md:col">
+      <label htmlFor="source_type">Widget Template</label>
+      <p-dropdown
+        [options]="widgetTemplates"
+        placeholder="Select a widget type"
+        name="widgetTemplate"
+        (onChange)="onChangeTemplate($event.value)"
+        optionLabel="template_name"
+      ></p-dropdown>
+    </div>
+    <div class="field lg:col-4 md:col">
+      <label htmlFor="name1">Source Id</label>
+      <input
+        pInputText
+        [(ngModel)]="widget.source_id"
+        name="source_id"
+        #source_id="ngModel"
+        required
+      />
+
+      <p-message
+        severity="error"
+        text="source id is required"
+        *ngIf="
+          (source_id.touched || widgetFrorm.submitted) &&
+          source_id.invalid &&
+          source_id.hasError('required')
+        "
+      ></p-message>
+    </div>
+
+    <div class="field lg:col-4 md:col">
+      <label>Data point</label>
+
+      <input
+        pInputText
+        [(ngModel)]="widget.data_point"
+        name="data_point"
+        #data_point="ngModel"
+        required
+      />
+
+      <p-message
+        severity="error"
+        text="Data Point is required"
+        *ngIf="
+          (data_point.touched || widgetFrorm.submitted) &&
+          data_point.invalid &&
+          data_point.hasError('required')
+        "
+      ></p-message>
+    </div>
+
+    <div class="field lg:col-4 md:col">
+      <label htmlFor="source_type">Widget Type</label>
+      <p-dropdown
+        [options]="widgetTypes"
+        [(ngModel)]="widget.widget_type"
+        placeholder="Select a widget type"
+        #widget_type="ngModel"
+        name="widget_type"
+        optionValue="value"
+        optionLabel="key"
+        [required]="true"
+      ></p-dropdown>
+
+      <p-message
+        severity="error"
+        text="Widget Type is required"
+        *ngIf="
+          (widget_type.touched || widgetFrorm.submitted) &&
+          widget_type.invalid &&
+          widget_type.hasError('required')
+        "
+      ></p-message>
+    </div>
+
+    <div class="field lg:col-4 md:col">
+      <label htmlFor="source_type">Chart Type</label>
+      <p-dropdown
+        [options]="chartTypes"
+        [(ngModel)]="widget.chart_type"
+        placeholder="Select a Chart type"
+        #chart_type="ngModel"
+        name="chart_type"
+        optionValue="value"
+        optionLabel="key"
+      ></p-dropdown>
+    </div>
+
+    <div class="field lg:col-4 md:col">
+      <label htmlFor="source_type">data aggregate type</label>
+      <p-dropdown
+        [options]="aggregateTypes"
+        [(ngModel)]="widget.data_aggregate_type"
+        placeholder="Select a data aggregate type"
+        #data_aggregate_type="ngModel"
+        name="data_aggregate_type"
+        optionValue="value"
+        optionLabel="key"
+        [required]="true"
+      ></p-dropdown>
+
+      <p-message
+        severity="error"
+        text="Chart Type is required"
+        *ngIf="
+          (data_aggregate_type.touched || widgetFrorm.submitted) &&
+          data_aggregate_type.invalid &&
+          data_aggregate_type.hasError('required')
+        "
+      ></p-message>
+    </div>
+
+    <div class="field lg:col-4 md:col">
+      <label htmlFor="source_type">periodicity</label>
+
+      <p-dropdown
+        [options]="periodicities"
+        [(ngModel)]="widget.periodicity"
+        placeholder="Select a periodicity"
+        #periodicity="ngModel"
+        name="periodicity"
+        optionValue="value"
+        optionLabel="key"
+        [required]="true"
+      ></p-dropdown>
+
+      <p-message
+        severity="error"
+        text="data point is required"
+        *ngIf="
+          (periodicity.touched || widgetFrorm.submitted) &&
+          periodicity.invalid &&
+          periodicity.hasError('required')
+        "
+      ></p-message>
+    </div>
+    <div class="field lg:col-4 md:col">
+      <label htmlFor="source_type">Data Result Type</label>
+      <p-dropdown
+        [options]="resultTypes"
+        [(ngModel)]="widget.data_result_type"
+        placeholder="Select a data aggregate type"
+        #data_result_type="ngModel"
+        name="data_result_type"
+        optionValue="value"
+        optionLabel="key"
+        [required]="true"
+      ></p-dropdown>
+
+      <p-message
+        severity="error"
+        text="Data Result Type is required"
+        *ngIf="
+          (data_result_type.touched || widgetFrorm.submitted) &&
+          data_result_type.invalid &&
+          data_result_type.hasError('required')
+        "
+      ></p-message>
+    </div>
+    <div class="field lg:col-4 md:col">
+      <label htmlFor="source_type">workspace id</label>
+
+      <input
+        pInputText
+        [(ngModel)]="widget.workspace_id"
+        name="workspace_id"
+        #workspace_id="ngModel"
+      />
+    </div>
+    <div class="field lg:col-4 md:col">
+      <label htmlFor="source_type">hidden</label>
+
+      <p-checkbox
+        [(ngModel)]="widget.is_hidden"
+        name="is_hidden"
+        [binary]="true"
+      ></p-checkbox>
+    </div>
+  </div>
+
+  <div class="p-dialog-footer">
+    <button
+      pButton
+      pRipple
+      label="Save"
+      class="mr-2 mb-2"
+      type="submit"
+    ></button>
+  </div>
+</form>

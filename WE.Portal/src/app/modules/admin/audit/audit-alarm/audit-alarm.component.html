@@ -1,0 +1,89 @@
+<div class="card p-fluid">
+  <h5>Search</h5>
+  <div class="flex justify-content-between flex-column sm:flex-row grid ">
+    <div class="field col">
+      <label htmlFor="device_name">Device Name</label>
+      <input pInputText id="device_name" type="text" device_name="ngModel" name="device_name"
+        [(ngModel)]="device_name" />
+    </div>
+    <div class="field col">
+      <label htmlFor="device_id">Device Id</label>
+      <input pInputText id="device_id" type="text" device_id="ngModel" name="device_id" [(ngModel)]="device_id" />
+    </div>
+    <div class="field col">
+      <label htmlFor="start_date">Start Date</label>
+      <p-calendar [(ngModel)]="start_date" start_date="ngModel" name="start_date"></p-calendar>
+    </div>
+    <div class="field col">
+      <label htmlFor="end_date">End Date</label>
+      <p-calendar [(ngModel)]="end_date" end_date="ngModel" name="end_date"></p-calendar>
+    </div>
+
+    <div class="field col">
+      <label htmlFor="status">Status</label>
+      <p-dropdown [options]="AlarmStatus" [(ngModel)]="status" placeholder="Select a status" name="status"
+        optionValue="value" optionLabel="key"></p-dropdown>
+    </div>
+    <div class="field col">
+      <label htmlFor="type">Type</label>
+      <p-dropdown [options]="AlarmType" [(ngModel)]="type" placeholder="Select a Type" name="type" optionValue="value"
+        optionLabel="key"></p-dropdown>
+    </div>
+  </div>
+  <div class="flex justify-content-between flex-wrap">
+    <div class="flex align-items-center w-4">
+      <button pButton pRipple label="Search" icon="pi pi-search" class="p-button-primary w-4 mr-2"
+        (click)="onSearch()"></button>
+    </div>
+  </div>
+  <div class="flex justify-content-between flex-wrap">
+    <div class="flex align-items-center w-4">
+      <app-export-to-excel [tableName]="'AuditAlarm'" [selectionItems]="auditAlarms"></app-export-to-excel>
+    </div>
+  </div>
+</div>
+
+<p-table [value]="auditAlarms" [paginator]="true" [rows]="10" [lazy]="true" (onLazyLoad)="loadData($event)"
+  [showCurrentPageReport]="true" [totalRecords]="total" responsiveLayout="scroll"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[10, 25, 50]">
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="DeviceId">
+        Device Id <p-sortIcon field="DeviceId"></p-sortIcon>
+      </th>
+      <th pSortableColumn="DeviceName">
+        Device Name <p-sortIcon field="DeviceName"></p-sortIcon>
+      </th>
+      <th pSortableColumn="PreiousStatus">
+        Preious Status <p-sortIcon field="PreiousStatus"></p-sortIcon>
+      </th>
+      <th pSortableColumn="NewStatus">
+        New Status <p-sortIcon field="NewStatus"></p-sortIcon>
+      </th>
+      <th pSortableColumn="AlarmMessage">
+        Alarm Message <p-sortIcon field="AlarmMessage"></p-sortIcon>
+      </th>
+      <th pSortableColumn="Type">
+        Type <p-sortIcon field="Type"></p-sortIcon>
+      </th>
+      <th pSortableColumn="CollectionName">
+        Collection Name <p-sortIcon field="CollectionName"></p-sortIcon>
+      </th>
+      <th pSortableColumn="TimeUpdated">
+        Updated <p-sortIcon field="TimeUpdated"></p-sortIcon>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-audit>
+    <tr>
+      <td>{{ audit.device_id }}</td>
+      <td>{{ audit.device_name }}</td>
+      <td>{{ audit.preious_status }}</td>
+      <td>{{ audit.new_status }}</td>
+      <td>{{ audit.alarm_message }}</td>
+      <td>{{ audit.type }}</td>
+      <td>{{ audit.collection_name }}</td>
+      <td>{{ audit.time_updated | date : "dd-MM-yyyy HH:mm" }}</td>
+    </tr>
+  </ng-template>
+</p-table>

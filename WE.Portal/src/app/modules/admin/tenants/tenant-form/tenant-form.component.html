@@ -1,0 +1,84 @@
+<form
+  (ngSubmit)="tenantForm.form.valid && save()"
+  #tenantForm="ngForm"
+  novalidate
+>
+  <div class="card p-fluid">
+    <div class="field">
+      <label htmlFor="name1">Name</label>
+      <input
+        pInputText
+        id="name1"
+        #name="ngModel"
+        name="name"
+        [(ngModel)]="tenant.name"
+        type="text"
+        maxlength="50"
+        (ngModelChange)="nameChange($event)"
+        pattern="^[a-zA-Z0-9 ]*$"
+        required
+      />
+      <p-message
+        severity="error"
+        text="Name is required"
+        *ngIf="
+          (name.touched || tenantForm.submitted) &&
+          name.invalid &&
+          name.hasError('required')
+        "
+      ></p-message>
+      <p-message
+        severity="error"
+        text="Name is only number and text"
+        *ngIf="
+          (name.touched || tenantForm.submitted) &&
+          name.invalid &&
+          name.hasError('pattern')
+        "
+      ></p-message>
+    </div>
+    <div class="field">
+      <label htmlFor="email1">url</label>
+      <div class="p-inputgroup">
+        <input
+          pInputText
+          id="email1"
+          [(ngModel)]="tenant.url"
+          name="url"
+          readonly
+          type="text"
+        />
+        <span class="p-inputgroup-addon">.wiredge.ai</span>
+      </div>
+    </div>
+    <div class="field">
+      <label htmlFor="description">Description</label>
+      <textarea
+        [(ngModel)]="tenant.description"
+        rows="5"
+        cols="30"
+        name="description"
+        pInputTextarea
+        id="description"
+        type="text"
+      ></textarea>
+    </div>
+  </div>
+  <div class="p-dialog-footer">
+    <button
+      pButton
+      pRipple
+      label="Save"
+      class="mr-2 mb-2"
+      type="submit"
+    ></button>
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="Cancel"
+      (click)="ref.close()"
+      class="p-button-secondary mr-2 mb-2"
+    ></button>
+  </div>
+</form>

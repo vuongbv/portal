@@ -1,0 +1,15 @@
+<div class="flex flex-column h-4rem">
+  <div class="flex">
+    <h5 class="flex-grow-1 flex align-items-center p-0">{{ title }}</h5>
+    <div class="flex align-items-center flex-none" *ngIf="description">
+      <span
+        class="pi pi-info-circle text-2xl"
+        tooltipPosition="top"
+        [fitContent]="false"
+        appendTo="body"
+        [pTooltip]="description"
+      ></span>
+    </div>
+  </div> 
+  <div class="flex font-normal text-sm text-gray-400" style="margin-top: -8px;" *ngIf="subtitle">{{ subtitle }}</div>
+</div>

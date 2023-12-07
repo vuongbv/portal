@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: weportal-config
+  namespace: weportal
+data:
+  NG_APP_ROOT_IOT: "/api"
+  NG_APP_ROOT_SHARE: "/share"
+  NG_APP_SHARE_URL: ""
+  NG_APP_DOMAIN_URL: ""
+  NG_APP_STRAPI_URL: "http://44.200.245.10:1337/api"
+  NG_APP_SIGNALR_URL: "/share"
+  NG_APP_SIGNALR_IOT_END_POINT: "/iot"
+  NG_APP_AUTHORITY_DOMAIN: "gtechdev.b2clogin.com"
+  NG_APP_AUTHORITIES_SIGNUPSIGNIN_AUTHORITY: "https://gtechdev.b2clogin.com/gtechdev.onmicrosoft.com/B2C_1_uf_signin_and_signup"
+  NG_APP_AUTHORITIES_CLIENTID: "2c1ef6a5-d8f9-49a6-b5fb-13b521d52e98"
+  NG_APP_REDIRECT_URI: "/"
+  NG_APP_POSTLOGOUTREDIRECT_URI: "/auth"

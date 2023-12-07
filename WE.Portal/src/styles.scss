@@ -1,0 +1,116 @@
+/* You can add global styles to this file, and also import other style files */
+
+$gutter: 1rem; //for primeflex grid system
+@import "assets/layout/styles/layout/layout.scss";
+
+/* PrimeNG */
+@import "../node_modules/primeng/resources/primeng.min.css";
+@import "../node_modules/primeflex/primeflex.scss";
+@import "../node_modules/primeicons/primeicons.css";
+
+/* Code Highlight */
+@import "../node_modules/prismjs/themes/prism-coy.css";
+
+/* Demos */
+// @import "assets/demo/styles/flags/flags.css";
+// @import "assets/demo/styles/badges.scss";
+.app-name {
+  font-size: 35px;
+  line-height: 40px;
+  font-weight: 400;
+  font-family: Roboto;
+}
+.h4 {
+  font-size: 30px;
+  line-height: 35.16px;
+  font-weight: 700;
+  font-family: Roboto;
+  // color: greenyellow;
+}
+
+.h8 {
+  font-size: 12px;
+  line-height: 14.06px;
+  font-weight: 400;
+  font-family: Roboto;
+}
+.h5 {
+  font-size: 14px;
+  line-height: 16.41px;
+  font-weight: 500;
+  font-family: Roboto;
+}
+
+.subtitle-1 {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 35px;
+  text-align: center;
+  letter-spacing: -0.01em;
+  color: #1ed760;
+}
+.rm-1 {
+  margin-right: 0.25rem !important;
+}
+
+.report-container {
+  height: 407px;
+}
+.h-40rem {
+  height: 40rem !important;
+}
+.h-36rem {
+  height: 36rem !important;
+}
+.h-38rem {
+  height: 38rem !important;
+}
+.h-45rem {
+  height: 45rem !important;
+}
+.report-container {
+  height: 22vw;
+}
+.h-stat {
+  height: 14.5rem;
+}
+.footer {
+  font-size: 10px;
+  line-height: 11.72px;
+  font-weight: 400;
+  color: #c3c3c3;
+}
+.h-map {
+  height: 54rem;
+}
+.report-container iframe {
+  border: none;
+}
+
+* {
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+}
+.h-operation {
+  height: 15rem;
+}
+.p-panelmenu {
+  // the chevron (arrow) icon
+  .p-panelmenu-icon {
+    order: 3; //here we are moving it to last position
+    margin-left: auto;
+  }
+}
+.p-panelmenu-header .p-highlight:hover {
+  border-color: transparent !important;
+}
+.p-tooltip {
+  width: 300px !important;
+  margin-left: -200px;
+}
+.p-tooltip .p-tooltip-text {
+  width: 300px;
+}

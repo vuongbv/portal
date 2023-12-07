@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: weportaldev 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: weportaldev
+  template:
+    metadata:
+      labels:
+        app: weportaldev 
+    spec:
+      containers:
+        - name: weportaldev 
+          image: acrwedev111.azurecr.io/weportaldev
+          ports:
+          - containerPort: 80

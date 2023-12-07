@@ -1,0 +1,93 @@
+<form
+  (ngSubmit)="emailForm.form.valid && save()"
+  (keydown.enter)="$event.preventDefault()"
+  #emailForm="ngForm"
+  novalidate
+>
+  <div class="card p-fluid">
+    <div class="field col" *ngIf="keyGen">
+      <label htmlFor="start_date">Key</label>
+      {{ keyGen
+      }}<button
+        ngxClipboard
+        pButton
+        pRipple
+        type="button"
+        [cbContent]="keyGen"
+        class="p-button-raised p-button-text"
+        icon="pi pi-copy"
+      ></button>
+    </div>
+    <div class="field col">
+      <label htmlFor="start_date">Tenant</label>
+      <p-dropdown
+        [options]="tenants"
+        [(ngModel)]="tenantId"
+        placeholder="Select a Tenant"
+        name="status"
+        optionValue="id"
+        optionLabel="name"
+      ></p-dropdown>
+    </div>
+    <div class="field col">
+      <label htmlFor="expiry_time">Expiry Time</label>
+      <p-calendar
+        [(ngModel)]="selectDate"
+        appendTo="body"
+        name="expiry_time"
+        [showTime]="true"
+        [showSeconds]="true"
+      ></p-calendar>
+    </div>
+    <div class="field">
+      <div class="col-8"><label htmlFor="name1">Scopes</label></div>
+      <div class="col-4">
+        <button
+          pButton
+          pRipple
+          class="p-button-text"
+          type="button"
+          icon="pi pi-plus"
+          (click)="onAddRow()"
+        ></button>
+      </div>
+      <div *ngFor="let item of apiKey.scopes; let i = index" class="grid">
+        <div class="col-8">
+          <input
+            pInputText
+            type="text"
+            [value]="item"
+            (input)="onChangeScopes($event, i)"
+            [name]="'recepient' + i"
+          />
+        </div>
+        <div class="col-2">
+          <button
+            pButton
+            icon="pi pi-trash"
+            type="button"
+            style="margin-right: 0.5em"
+            (click)="onRemove(i)"
+          ></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="p-dialog-footer">
+    <button
+      pButton
+      pRipple
+      label="Save"
+      class="mr-2 mb-2"
+      type="submit"
+    ></button>
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="Cancel"
+      (click)="ref.close()"
+      class="p-button-secondary mr-2 mb-2"
+    ></button>
+  </div>
+</form>

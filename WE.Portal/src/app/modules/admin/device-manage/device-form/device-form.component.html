@@ -1,0 +1,158 @@
+<form
+  (ngSubmit)="deviceForm.form.valid && save()"
+  #deviceForm="ngForm"
+  novalidate
+>
+  <div class="card p-fluid">
+    <div class="field">
+      <label htmlFor="name1">Name</label>
+      <input
+        pInputText
+        id="name1"
+        #name="ngModel"
+        name="name"
+        [(ngModel)]="device.name"
+        type="text"
+        maxlength="50"
+        required
+      />
+      <p-message
+        severity="error"
+        text="Name is required"
+        *ngIf="
+          (name.touched || deviceForm.submitted) &&
+          name.invalid &&
+          name.hasError('required')
+        "
+      ></p-message>
+    </div>
+    <div class="field">
+      <label htmlFor="owner">Owner</label>
+      <input
+        pInputText
+        #owner="ngModel"
+        name="owner"
+        [(ngModel)]="device.owner"
+        type="text"
+        maxlength="50"
+        required
+      /><p-message
+        severity="error"
+        text="Owner is required"
+        *ngIf="
+          (owner.touched || deviceForm.submitted) &&
+          owner.invalid &&
+          owner.hasError('required')
+        "
+      ></p-message>
+    </div>
+    <div class="field">
+      <label htmlFor="owner">Source Id</label>
+      <span class="p-input-icon-left">
+        <input
+          pInputText
+          #source_id="ngModel"
+          name="source_id"
+          [(ngModel)]="device.source_id"
+          type="text"
+          maxlength="50"
+          required
+        />
+        <i class="pi pi-code" (click)="autoGenId()"></i>
+      </span>
+      <p-message
+        severity="error"
+        text="Source Id is required"
+        *ngIf="
+          (source_id.touched || deviceForm.submitted) &&
+          source_id.invalid &&
+          source_id.hasError('required')
+        "
+      ></p-message>
+    </div>
+    <div class="field">
+      <label htmlFor="location">Location latitude</label>
+      <p-inputNumber
+        id="latitude"
+        #latitude="ngModel"
+        name="latitude"
+        [(ngModel)]="device.gt_position!.lat"
+        mode="decimal"
+        [maxFractionDigits]="20"
+        [useGrouping]="false"
+        [required]="true"
+      ></p-inputNumber>
+      <p-message
+        severity="error"
+        text="latitude is required"
+        *ngIf="
+          (latitude.touched || deviceForm.submitted) &&
+          latitude.invalid &&
+          latitude.hasError('required')
+        "
+      ></p-message>
+    </div>
+    <div class="field">
+      <label htmlFor="location">Location longitude</label>
+      <p-inputNumber
+        id="latitude"
+        #longitude="ngModel"
+        name="longitude"
+        [(ngModel)]="device.gt_position!.lng"
+        type="text"
+        mode="decimal"
+        [maxFractionDigits]="20"
+        [useGrouping]="false"
+        [required]="true"
+      ></p-inputNumber>
+      <p-message
+        severity="error"
+        text="longitude is required"
+        *ngIf="
+          (longitude.touched || deviceForm.submitted) &&
+          longitude.invalid &&
+          longitude.hasError('required')
+        "
+      ></p-message>
+    </div>
+    <div class="field">
+      <label htmlFor="source_type">Operation Status</label>
+      <p-dropdown
+        [options]="OperationStatuses"
+        [(ngModel)]="device.operation_status"
+        placeholder="Select a status"
+        name="operation_status"
+        optionValue="value"
+        optionLabel="name"
+      ></p-dropdown>
+    </div>
+    <div class="field">
+      <label htmlFor="source_type">status</label>
+      <p-dropdown
+        [options]="statuses"
+        [(ngModel)]="device.status"
+        placeholder="Select a status"
+        name="status"
+        optionValue="value"
+        optionLabel="name"
+      ></p-dropdown>
+    </div>
+  </div>
+  <div class="p-dialog-footer">
+    <button
+      pButton
+      pRipple
+      label="Save"
+      class="mr-2 mb-2"
+      type="submit"
+    ></button>
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="Cancel"
+      (click)="ref.close()"
+      class="p-button-secondary mr-2 mb-2"
+    ></button>
+  </div>
+</form>

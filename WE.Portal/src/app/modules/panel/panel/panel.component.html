@@ -1,0 +1,47 @@
+<div class="title border-right-4 text-green-400">
+  <h4 class="page-title">
+    <!-- <p-tabView>
+      <p-tabPanel *ngFor="let tabName of listTabname" (click)="onChangeTabName(tabName)" [header]="tabName"></p-tabPanel>
+    </p-tabView> -->
+
+    <div class="tabset">
+      <div
+        class="tabItem"
+        *ngFor="let tab of listTabname; let i = index"
+        [ngClass]="{ selectedTabName: selectedTabNameIndex === i }"
+      >
+        <!-- <img style="margin-right: 5px;"
+        class="dashboard-title-logo"
+        src="assets/layout/images/dashboard-white.svg"
+        /> -->
+        <!-- <i [ngClass]="tabName" ></i> -->
+
+        <span
+          class="ml-2"
+          (click)="onChangeTabName(tab.id, i)"
+          style="width: 50px"
+          >{{ tab.name }}</span
+        >
+      </div>
+    </div>
+  </h4>
+</div>
+<ktd-grid
+  style="padding-top: 2.9rem; padding-left: 0.6rem"
+  [cols]="cols"
+  [layout]="layout!"
+  [rowHeight]="110"
+  (layoutUpdated)="onLayoutUpdated($event)"
+  [gap]="9"
+>
+  <ktd-grid-item
+    *ngFor="let item of layout; trackBy: trackById"
+    [id]="item.id"
+    [resizable]="isAdmin"
+    [draggable]="isAdmin"
+  >
+    <!-- Your grid item content goes here -->
+    <app-widget [id]="item.id" [panel_id]="panel?.id!" [item]="item" (hidedWidget)="hideWidget($event)" [isAdmin] = "isAdmin">
+    </app-widget>
+  </ktd-grid-item>
+</ktd-grid>

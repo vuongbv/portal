@@ -1,0 +1,49 @@
+<h5>Device Manage</h5>
+<div class="card">
+  <p-table
+    [value]="devices"
+    [paginator]="true"
+    [rows]="10"
+    [totalRecords]="total"
+    [lazy]="true"
+    (onLazyLoad)="lazyLoadTabel($event)"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="Name">Name<p-sortIcon field="Name"></p-sortIcon></th>
+        <th pSortableColumn="Owner">Owner<p-sortIcon field="Owner"></p-sortIcon></th>
+        <th pSortableColumn="OperationStatus">Operation Status<p-sortIcon field="OperationStatus"></p-sortIcon></th>
+        <th pSortableColumn="Status">Status<p-sortIcon field="Status"></p-sortIcon></th>
+        <th style="width: 10%">action</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-device>
+      <tr>
+        <td>{{ device.name }}</td>
+        <td>{{ device.owner }}</td>
+        <td>{{ device.operation_status }}</td>
+        <td>{{ device.status }}</td>
+        <td>
+          <p-button
+            type="button"
+            pRipple
+            icon="pi pi-pencil"
+            styleClass="p-button-rounded p-button-text"
+            (click)="edit(device.id)"
+          ></p-button>
+          <!-- <p-button
+            type="button"
+            pRipple
+            [icon]="
+            device.status == 'active'
+                ? 'pi pi-lock'
+                : 'pi pi-lock-open'
+            "
+            class="p-button p-component p-button-text p-button-icon-only"
+            (click)="ActiveOrDeactive(device.id, device.status)"
+          ></p-button> -->
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

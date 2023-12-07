@@ -1,0 +1,43 @@
+<ul class="layout-menu">
+  <li class="flex justify-content-center">
+    <div style="min-height: 138px; display: flex; align-items: center;">
+      <!-- <img class="logo-img" [src]="logoUrl" alt="logo" /> -->
+    </div>
+  </li>
+  <!-- <li class="">
+    <a
+      routerLink="/"
+      routerLinkActive="active-bg-white" [routerLinkActiveOptions]="{exact: true}"
+      class="border-round-md flex align-items-center h-3rem"
+    >
+      <i class="ml-2 pi pi-fw pi-home text-white-alpha-90 font-bold"> </i>
+      <span class="text-white-alpha-90 ml-2 font-bold">Home</span>
+    </a>
+  </li> -->
+  <p-panelMenu [model]="model" [style]="{ width: '100%' }"></p-panelMenu>
+  <!-- <ng-container *ngFor="let item of model; let i = index">
+    <li
+      app-menuitem
+      *ngIf="!item.separator && item.label !== 'Home'"
+      [item]="item"
+      [index]="i"
+      [root]="true"
+      [ngClass]="{ admin_label: item.label == 'Admin'}"
+    >
+  </li>
+    <li *ngIf="item.separator && item.label !== 'Home'" class="menu-separator"></li>
+    <li *ngIf="item.label === 'Home'" class="">
+      <a
+        routerLink="/"
+        routerLinkActive="active-bg-white" [routerLinkActiveOptions]="{exact: true}"
+        class="border-round-md flex align-items-center h-3rem"
+      >
+        <i class="ml-2 pi pi-fw pi-home text-white-alpha-90 font-bold"> </i>
+        <span class="text-white-alpha-90 ml-2 font-bold">Home</span>
+      </a>
+    </li>
+  </ng-container> -->
+</ul>
+<div class="static md:absolute bottom-0 left-1  p-3 " style="width: 100%;">
+<div class="flex align-content-center footer justify-content-center">POWERED BY WIREDGE.AI <p style="display: none;">@ {{version}}</p></div>
+</div>

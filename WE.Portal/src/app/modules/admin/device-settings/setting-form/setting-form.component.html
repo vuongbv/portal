@@ -1,0 +1,214 @@
+<form
+  (ngSubmit)="settingForm.form.valid && save()"
+  #settingForm="ngForm"
+  novalidate
+>
+  <div class="card p-fluid">
+    <div class="field">
+      <label htmlFor="device">Device</label>
+      <p-dropdown
+        [options]="devices!"
+        [(ngModel)]="setting!.device"
+        placeholder="Select a device"
+        #device="ngModel"
+        name="device"
+        optionValue="source_id"
+        optionLabel="name"
+        [required]="true"
+      ></p-dropdown>
+
+      <!-- <input
+        pInputText
+        id="device"
+        #device="ngModel"
+        name="device"
+        [(ngModel)]="setting!.device"
+        type="text"
+        maxlength="50"
+        required
+      /> -->
+
+      <p-message
+        severity="error"
+        text="device is required"
+        *ngIf="
+          (device.touched || settingForm.submitted) &&
+          device.invalid &&
+          device.hasError('required')
+        "
+      ></p-message>
+    </div>
+    <div class="field" *ngIf="showgeoFencing">
+      <p-button pRipple type="button" label="Show map" (click)="showMap()">
+      </p-button>
+    </div>
+
+    <div class="field h-25rem" *ngIf="show">
+      <app-map
+        [centroid]="options"
+        [markers]="options.bounds"
+        [devices]="devices"
+        [device_id]="setting!.device!"
+        [geometry]="setting!.geometry"
+        (drawPolygon)="drawPolygon($event)"
+      ></app-map>
+    </div>
+    <div class="field">
+      <label htmlFor="criteria">Data Source</label>
+
+      <input
+        pInputText
+        id="criteria"
+        #criteria="ngModel"
+        name="criteria"
+        [(ngModel)]="setting!.criteria"
+        type="text"
+        maxlength="50"
+        required
+      />
+      <p-message
+        severity="error"
+        text="Criteria is required"
+        *ngIf="
+          (criteria.touched || settingForm.submitted) &&
+          criteria.invalid &&
+          criteria.hasError('required')
+        "
+      ></p-message>
+    </div>
+
+    <div class="field">
+      <label htmlFor="operator">Operator</label>
+      <p-dropdown
+        [options]="operatortype"
+        [(ngModel)]="setting!.operator"
+        name="operator"
+        optionLabel="key"
+        optionValue="value"
+      ></p-dropdown>
+    </div>
+    <div
+      class="field"
+      *ngIf="
+        setting!.operator == Operator.Range ||
+        setting!.operator == Operator.RangeEqual
+      "
+    >
+      <label htmlFor="value_from">Value From</label>
+
+      <input
+        pInputText
+        [(ngModel)]="setting!.value_from"
+        mode="decimal"
+        name="source_name"
+        #value_from="ngModel"
+      />
+
+      <p-message
+        severity="error"
+        text="Value From is required"
+        *ngIf="
+          (value_from.touched || settingForm.submitted) &&
+          value_from.invalid &&
+          value_from.hasError('required')
+        "
+      ></p-message>
+    </div>
+    <div
+      class="field"
+      *ngIf="
+        setting!.operator == Operator.Range ||
+        setting!.operator == Operator.RangeEqual
+      "
+    >
+      <label htmlFor="value_to">Value To</label>
+
+      <input
+        pInputText
+        [(ngModel)]="setting!.value_to"
+        mode="decimal"
+        name="value_to"
+        #value_to="ngModel"
+      />
+
+      <p-message
+        severity="error"
+        text="Value tois required"
+        *ngIf="
+          (value_to.touched || settingForm.submitted) &&
+          value_to.invalid &&
+          value_to.hasError('required')
+        "
+      ></p-message>
+    </div>
+    <div
+      class="field"
+      *ngIf="
+        setting!.operator != Operator.Range &&
+        setting!.operator != Operator.RangeEqual
+      "
+    >
+      <label htmlFor="value_equal">Value Equal</label>
+      <input
+        pInputText
+        [(ngModel)]="setting!.value_equal"
+        mode="decimal"
+        name="value_equal"
+        #value_equal="ngModel"
+      />
+    </div>
+
+    <h4>Action</h4>
+    <button
+      pButton
+      pRipple
+      icon="pi pi-plus"
+      type="button"
+      (click)="addAction()"
+      class="p-button-secondary mr-2 mb-2"
+    ></button>
+    <!-- <p-accordion>
+      <p-accordionTab header="">
+        test
+     </p-accordionTab>
+  </p-accordion> -->
+    <p-accordion>
+      <p-accordionTab
+        (onDelete)="removeAction(i)"
+        *ngFor="let action of setting?.actions; let i = index"
+        [header]="action.type!!"
+      >
+        <app-add-action
+          [action]="action"
+          [actionTemplates]="actionTemplates"
+        ></app-add-action>
+        <div class="p-dialog-footer">
+          <button
+            pButton
+            pRipple
+            label="Remove"
+            class="mr-2 mb-2"
+            (click)="removeAction(i)"
+          ></button>
+        </div>
+      </p-accordionTab>
+    </p-accordion>
+  </div>
+  <div class="p-dialog-footer">
+    <button
+      pButton
+      pRipple
+      label="Save"
+      class="mr-2 mb-2"
+      type="submit"
+    ></button>
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="Cancel"
+      (click)="ref.close()"
+      class="p-button-secondary mr-2 mb-2"
+    ></button>
+  </div>
+</form>

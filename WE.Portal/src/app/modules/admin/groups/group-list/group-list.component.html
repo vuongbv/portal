@@ -1,0 +1,57 @@
+<div class="card">
+  <h5>Groups managerment</h5>
+  <div class="card">
+    <p-dropdown
+      *ngIf="isAdmin"
+      [options]="tenants"
+      [(ngModel)]="selectedTenant"
+      optionLabel="name"
+      optionValue="id"
+      placeholder="Select a tenant"
+      (ngModelChange)="selectTenant()"
+    ></p-dropdown>
+    <p-button
+      type="button"
+      icon="pi pi-plus"
+      styleClass="p-button-text"
+      (click)="addNew()"
+    ></p-button>
+  </div>
+  <p-table
+    [value]="groups"
+    [paginator]="true"
+    [rows]="10"
+    [totalRecords]="total"
+    [lazy]="true"
+    (onLazyLoad)="lazyLoadTabel($event)"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Name</th>
+
+        <th style="width:15%">Action</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-group>
+      <tr>
+        <td>{{ group.name }}</td>
+
+        <td>
+          <p-button
+            type="button"
+            pRipple
+            icon="pi pi-pencil"
+            styleClass="p-button-rounded p-button-text"
+            (click)="edit(group.id)"
+          ></p-button>
+          <p-button
+            type="button"
+            icon="pi pi-trash"
+            styleClass="p-button-rounded p-button-text p-button-danger"
+            (click)="delete(group.id)"
+          ></p-button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

@@ -1,0 +1,145 @@
+<form
+  (ngSubmit)="groupForm.form.valid && save()"
+  #groupForm="ngForm"
+  novalidate
+>
+  <div class="card p-fluid">
+    <div class="field">
+      <label htmlFor="name1">Name</label>
+      <input
+        pInputText
+        id="name1"
+        #name="ngModel"
+        name="name"
+        [(ngModel)]="group.name"
+        type="text"
+        maxlength="50"
+        pattern="^[a-zA-Z0-9 ]*$"
+        required
+      />
+      <p-message
+        severity="error"
+        text="Name is required"
+        *ngIf="
+          (name.touched || groupForm.submitted) &&
+          name.invalid &&
+          name.hasError('required')
+        "
+      ></p-message>
+      <p-message
+        severity="error"
+        text="Name is only number and text"
+        *ngIf="
+          (name.touched || groupForm.submitted) &&
+          name.invalid &&
+          name.hasError('pattern')
+        "
+      ></p-message>
+    </div>
+    <!-- <div class="field" *ngIf="isShowAppName">
+      <label htmlFor="name1">App Name</label>
+      <p-dropdown
+      [options]="appNames"
+      [(ngModel)]="group.app_name"
+      placeholder="Select a App"
+      name="status"
+      optionValue="key"
+      optionLabel="value"
+    ></p-dropdown>
+    </div> -->
+    <!-- <div class="field">
+      <label htmlFor="location">Location latitude</label>
+      <p-inputNumber
+        id="latitude"
+        #latitude="ngModel"
+        name="latitude"
+        [(ngModel)]="group.location!.latitude"
+        mode="decimal"
+        [maxlength]="50"
+        [required]="true"
+        [useGrouping]="false"
+      ></p-inputNumber>
+      <p-message
+        severity="error"
+        text="latitude is required"
+        *ngIf="
+          (latitude.touched || groupForm.submitted) &&
+          latitude.invalid &&
+          latitude.hasError('required')
+        "
+      ></p-message>
+    </div>
+    <div class="field">
+      <label htmlFor="location">Location longitude</label>
+      <p-inputNumber
+        id="latitude"
+        #longitude="ngModel"
+        name="longitude"
+        [(ngModel)]="group.location!.longitude"
+        [maxlength]="50"
+        [required]="true"
+        mode="decimal"
+        [useGrouping]="false"
+      ></p-inputNumber>
+      <p-message
+        severity="error"
+        text="longitude is required"
+        *ngIf="
+          (longitude.touched || groupForm.submitted) &&
+          longitude.invalid &&
+          longitude.hasError('required')
+        "
+      ></p-message>
+    </div> -->
+    <div class="field field-checkbox">
+      <p-checkbox
+        [(ngModel)]="group.is_home_page"
+        name="is_home_page"
+        [binary]="true"
+      >
+      </p-checkbox
+      ><label htmlFor="role1">Is Home Page</label>
+    </div>
+    <div class="field">
+      <label htmlFor="role1">Role</label>
+
+      <p-multiSelect
+        id="roles1"
+        #roles="ngModel"
+        name="roles"
+        placeholder="Select roles"
+        [options]="LIST_ROLE"
+        [(ngModel)]="group.roles"
+        optionValue="name"
+        optionLabel="name"
+        [required]="true"
+      ></p-multiSelect>
+      <p-message
+        severity="error"
+        text="role is required"
+        *ngIf="
+          (roles.touched || groupForm.submitted) &&
+          roles.invalid &&
+          roles.hasError('required')
+        "
+      ></p-message>
+    </div>
+  </div>
+  <div class="p-dialog-footer">
+    <button
+      pButton
+      pRipple
+      label="Save"
+      class="mr-2 mb-2"
+      type="submit"
+    ></button>
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="Cancel"
+      (click)="ref.close()"
+      class="p-button-secondary mr-2 mb-2"
+    ></button>
+  </div>
+</form>

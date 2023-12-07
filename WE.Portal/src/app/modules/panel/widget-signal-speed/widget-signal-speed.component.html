@@ -1,0 +1,40 @@
+<div class="mb-2" [ngStyle]="{ 'height.rem': height! * 7.3 }">
+  <app-title-tooltip
+    [title]="title"
+    [description]="description"
+    [date]="dateTime"
+    [widget_under_title_description]="widget_under_title_description"
+  ></app-title-tooltip>
+  <div class="grid formgrid">
+    <div class="flex col-12 h-7rem mt-3">
+      <div class="col-4">
+        <div class="text-900 font-medium">Latency</div>
+        <div class="text-left">
+          {{ latency }} <span class="text-sm">ms</span>
+        </div>
+      </div>
+
+      <div class="col-4">
+        <div class="text-900 font-medium">Download</div>
+        <div class="text-left">
+          {{ download_speed }} <span class="text-sm">Mbps</span>
+        </div>
+      </div>
+
+      <div class="col-4">
+        <div class="text-900 font-medium">Upload</div>
+        <div class="text-left">
+          {{ upload_speed }} <span class="text-sm">Mbps</span>
+        </div>
+      </div>
+    </div>
+    <div class="flex col-12 justify-content-end mt-3">
+      <span class="flex align-items-center justify-content-center">
+        <i class="pi pi-clock"></i>
+        <span class="ml-2 font-normal text-sm text-gray-400"
+          >Refreshes every {{ data_frequency }}
+        </span>
+      </span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,123 @@
+<div class="grid">
+  <div class="col-12 lg:col-6 xl:col-3">
+    <div class="card mb-2">
+      <h5>Current Power Usage</h5>
+      <div class="grid formgrid">
+        <div class="col-12 mb-12 lg:col-12 lg:mb-2">
+          <span class="h4">{{ data.total_power }}</span>
+          <span class="subtitle-1"> W</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card mb-2">
+      <h5>Current solar controller voltage</h5>
+      <div class="grid formgrid">
+        <div class="col-12 mb-2 lg:col-4 lg:mb-2">
+          <span class="h4">{{ data.avg_voltage }}</span>
+          <span class="subtitle-1"> V</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-2">
+      <h5>Current Solar controller Current</h5>
+      <div class="grid formgrid">
+        <div class="col-12 mb-2 lg:col-4 lg:mb-2 flex">
+          <span class="h4">{{ data.avg_current }} </span>
+          <span class="subtitle-1"> A</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12 lg:col-6 xl:col-3">
+    <div class="card mb-2">
+      <h5>Current 5g Signal Strength</h5>
+      <div class="grid formgrid">
+        <div class="col-12 mb-2 lg:col-4 lg:mb-2">
+          <app-signals-streng [strength]="5"></app-signals-streng>
+        </div>
+        <div class="col-12 mb-4 lg:col-6 lg:mb-2">
+          <div class="text-900 font-medium">EXCELLENT</div>
+          <div class="text-900 font-medium">19/01/2020 14:30</div>
+        </div>
+      </div>
+    </div>
+    <div class="card mb-2">
+      <h5>Current Temperature</h5>
+      <div class="grid formgrid">
+        <div class="col-12 lg:col-12 mb-5">
+          <app-bullet-chart
+            title="Enclousure"
+            [series]="enclousureSeries"
+          ></app-bullet-chart>
+        </div>
+        <div class="col-12 lg:col-12 mb-2">
+          <app-bullet-chart
+            title="Solar Charge Controller"
+            [series]="SolarSeries"
+          ></app-bullet-chart>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 lg:col-6 xl:col-3">
+    <div class="card">
+      <h5>Current Power generated vs battery usage</h5>
+      <div class="grid formgrid">
+        <div class="col-12 mb-2 lg:col-12 lg:mb-3">
+          <app-gauge-chart
+            [title]="batteryVoltage"
+            [series]="batterySeries"
+          ></app-gauge-chart>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 lg:col-6 xl:col-3">
+    <div class="card">
+      <app-map [centroid]="options" [markers]="options.bounds"></app-map>
+    </div>
+  </div>
+
+  <div class="col-12 xl:col-8">
+    <div class="card mb-2">
+      <h5>Hourly 5g signal strength</h5>
+      <app-line-chart
+        [catalogs]="PowerHourlyFivegCatalog"
+        [Series]="PowerHourlyFivegCatalogSeries"
+      ></app-line-chart>
+    </div>
+  </div>
+  <div class="col-12 xl:col-4">
+    <app-alarm></app-alarm>
+  </div>
+  <div class="col-12 xl:col-6">
+    <div class="card mb-2">
+      <h5>Next 7 Days forecast fr powwer generated vs weather</h5>
+      <app-line-chart
+        [catalogs]="powwerGeneratedWeatherCatalog"
+        [Series]="powwerGeneratedWeatherSeries"
+      ></app-line-chart>
+    </div>
+  </div>
+  <div class="col-12 xl:col-6">
+    <div class="card mb-2">
+      <h5>Hourly Power generated vs Sunlight</h5>
+      <app-line-chart
+        [catalogs]="PowerGeneratedSunlightCatalog"
+        [Series]="PowerGeneratedSunlightSeries"
+      ></app-line-chart>
+    </div>
+  </div>
+  <div class="col-12 xl:col-6">
+    <div class="card mb-2">
+      <h5>Hourly Power Use</h5>
+      <app-line-chart
+        [catalogs]="fivegSignalCatalog"
+        [Series]="fivegSignalSeries"
+      ></app-line-chart>
+    </div>
+  </div>
+</div>

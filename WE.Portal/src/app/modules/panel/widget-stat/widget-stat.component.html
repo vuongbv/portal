@@ -1,0 +1,27 @@
+<app-title-tooltip
+  [title]="title"
+  [description]="description"
+  [date]="date"
+  [widget_under_title_description] = "widget_under_title_description"
+></app-title-tooltip>
+<div class="grid formgrid justify-content-center h-8rem">
+  <div class="flex align-items-center justify-content-center py-5">
+    <img [src]="data_icon" class="mr-2" />
+    <span
+      [style]="{ color: textColor ? textColor : '' }"
+      class="subtitle-1 text-green-400"
+      >{{ data | number : formatDecimal }}
+    </span>
+    <span
+      [style]="{ color: textColor ? textColor : '' }"
+      class="subtitle-1 ml-2"
+    >
+      {{ currency }}</span
+    >
+  </div>
+</div>
+<div class="flex col-12 justify-content-end mt-2">
+  <span class="flex align-items-center justify-content-center ">
+    <i class="pi pi-clock"></i> <span class="ml-2 font-normal text-sm text-gray-400">Refreshes every {{data_frequency}}</span>
+  </span>
+</div>

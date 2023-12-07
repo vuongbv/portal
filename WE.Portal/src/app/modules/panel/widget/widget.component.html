@@ -1,0 +1,222 @@
+<div class="card" style="width: 100%; height: 100%">
+  <div class="flex absolute justify-content-end w-full pr-4" *ngIf="isAdmin">
+    <i class="pi pi-times" (click)="hideWidget(widget.id!)"></i>
+  </div>
+  <app-widget-stat
+    *ngIf="
+      widget.widget_type == widgetType.Widget &&
+      widget.chart_type != chartType.Battery &&
+      widget.data_point === 'mcx_PV'
+    "
+    [widget_type]="widget.widget_type"
+    [device_id]="widget.source_id!"
+    [title]="widget.widget_name!"
+    [description]="widget.widget_description!"
+    [power_type]="widget.power_type!"
+    [periodicity]="widget.periodicity"
+    [widget_id]="widget.id!"
+    [widget_setting]="widget.setting"
+    [formular]="widget.setting?.formular"
+    [data_frequency]="widget.data_frequency"
+    [widget_under_title_description]="widget.widget_under_title_description"
+  ></app-widget-stat>
+
+  <app-widget-stat
+    *ngIf="widget.widget_type == widgetType.SingleValue"
+    [device_id]="widget.source_id!"
+    [title]="widget.widget_name!"
+    [description]="widget.widget_description!"
+    [power_type]="widget.power_type!"
+    [periodicity]="widget.periodicity"
+    [widget_id]="widget.id!"
+    [widget_type]="widget.widget_type"
+    [data_path]="widget.data_path"
+    [data_point]="widget.data_point"
+    [sub_id]="widget.sub_id"
+    [data_aggregate_type]="widget.data_aggregate_type"
+    [data_result_type]="widget.data_result_type"
+    [unit]="widget.unit"
+    [widget_setting]="widget.setting"
+    [data_icon]="widget.widget_data_icon"
+    [formular]="widget.setting?.formular"
+    [data_frequency]="widget.data_frequency"
+    [widget_under_title_description]="widget.widget_under_title_description"
+  ></app-widget-stat>
+
+  <app-widget-line
+    *ngIf="
+      (widget.widget_type == widgetType.Chart ||
+        widget.widget_type == widgetType.SingleChart ||
+        widget.widget_type == widgetType.MultiChart) &&
+      widget.chart_type == chartType.Line
+    "
+    [device_id]="widget.source_id!"
+    [title]="widget.widget_name!"
+    [description]="widget.widget_description!"
+    [power_type]="widget.power_type!"
+    [periodicity]="widget.periodicity"
+    [ref_id]="widget.ref_source_id"
+    [widget_id]="widget.id!"
+    [widget_type]="widget.widget_type"
+    [data_path]="widget.data_path"
+    [data_point]="widget.data_point"
+    [sub_id]="widget.sub_id"
+    [data_aggregate_type]="widget.data_aggregate_type"
+    [data_result_type]="widget.data_result_type"
+    [unit]="widget.unit"
+    [line_name]="widget.line_name"
+    [chart_style_setting_id]="widget.setting?.chart_style_setting_id"
+    [formular]="widget.setting?.formular"
+    [widget_under_title_description]="widget.widget_under_title_description"
+  ></app-widget-line>
+
+  <app-widget-bullet
+    [title]="widget.widget_name!"
+    *ngIf="
+      widget.widget_type == widgetType.Chart &&
+      widget.chart_type == chartType.Bullet
+    "
+    [device_id]="widget.source_id!"
+    [title]="widget.widget_name!"
+    [description]="widget.widget_description!"
+    [widget_id]="widget.id!"
+    [widget_under_title_description]="widget.widget_under_title_description"
+  ></app-widget-bullet>
+
+  <app-widget-gauge
+    *ngIf="widget.chart_type == chartType.Gauge"
+    [device_id]="widget.source_id!"
+    [title]="widget.widget_name!"
+    [description]="widget.widget_description!"
+    [widget_id]="widget.id!"
+    [widget_under_title_description]="widget.widget_under_title_description"
+  ></app-widget-gauge>
+
+  <app-widget-signal
+    *ngIf="
+      widget.widget_type == widgetType.Chart &&
+      widget.chart_type == chartType.Signal
+    "
+    [title]="widget.widget_name!"
+    [description]="widget.widget_description!"
+    [device_id]="widget.source_id!"
+    [widget_id]="widget.id!"
+    [height]="item?.h"
+    [widget_under_title_description]="widget.widget_under_title_description"
+    [data_frequency]="widget.data_frequency"
+  ></app-widget-signal>
+  <app-widget-signal-speed
+    *ngIf="
+      widget.widget_type == widgetType.Chart &&
+      widget.chart_type == chartType.SignalData
+    "
+    [title]="widget.widget_name!"
+    [description]="widget.widget_description!"
+    [device_id]="widget.source_id!"
+    [widget_id]="widget.id!"
+    [height]="item?.h"
+    [widget_under_title_description]="widget.widget_under_title_description"
+    [data_frequency]="widget.data_frequency"
+  ></app-widget-signal-speed>
+
+  <app-widget-map
+    *ngIf="widget.widget_type == widgetType.Map"
+    [device_id]="widget.source_id!"
+    [widget_id]="widget.id!"
+    [height]="widget.position?.height"
+    [widget_under_title_description]="widget.widget_under_title_description"
+  ></app-widget-map>
+
+  <div *ngIf="widget.widget_type == widgetType.DataList">
+    <app-alarm
+      [device_id]="widget.source_id!"
+      [widget_id]="widget.id!"
+      [widget_under_title_description]="widget.widget_under_title_description"
+    ></app-alarm>
+  </div>
+
+  <app-widget-device-status
+    *ngIf="
+      widget.widget_type == widgetType.Widget && widget.data_point === 'Device'
+    "
+    [title]="widget.widget_name!"
+    [description]="widget.widget_description!"
+    [device_id]="widget.source_id!"
+    [widget_id]="widget.id!"
+    [data_frequency]="widget.data_frequency"
+    [widget_under_title_description]="widget.widget_under_title_description"
+  ></app-widget-device-status>
+
+  <app-widget-power-bi
+    *ngIf="widget.widget_type == widgetType.PowerBi"
+    [group_id]="widget.workspace_id!"
+    [report_id]="widget.source_id!"
+    [title]="widget.widget_name!"
+    [description]="widget.widget_description!"
+    [widget_id]="widget.id!"
+    [widget_setting]="widget.setting"
+    [widget_under_title_description]="widget.widget_under_title_description"
+  >
+  </app-widget-power-bi>
+
+  <app-widget-battery-level
+    *ngIf="
+      widget.widget_type == widgetType.Widget &&
+      widget.chart_type == chartType.Battery
+    "
+    [title]="widget.widget_name!"
+    [description]="widget.widget_description!"
+    [device_id]="widget.source_id!"
+    [widget_id]="widget.id!"
+    [widget_setting]="widget.setting"
+    [data_frequency]="widget.data_frequency"
+    [widget_under_title_description]="widget.widget_under_title_description"
+  ></app-widget-battery-level>
+
+  <app-widget-operation
+    *ngIf="widget.widget_type == widgetType.Power"
+    [title]="widget.widget_name!"
+    [description]="widget.widget_description!"
+    [device_id]="widget.source_id!"
+    [data_aggregate_type]="widget.data_aggregate_type"
+    [widget_id]="widget.id!"
+    [pin_number]="widget.pin_number"
+    [widget_under_title_description]="widget.widget_under_title_description"
+  ></app-widget-operation>
+  <app-widget-batch-device
+    *ngIf="widget.widget_type == widgetType.PowerBatch"
+    [widget_under_title_description]="widget.widget_under_title_description"
+  >
+  </app-widget-batch-device>
+  <app-widget-all-device-status
+    *ngIf="widget.widget_type == widgetType.DeviceStatus"
+    [title]="widget.widget_name!"
+    [description]="widget.widget_description!"
+    [widget_id]="widget.id!"
+    [widget_under_title_description]="widget.widget_under_title_description"
+  ></app-widget-all-device-status>
+
+  <app-widget-weather
+    *ngIf="widget.widget_type == widgetType.Weather"
+    [title]="widget.widget_name!"
+    [description]="widget.widget_description!"
+    [widget_under_title_description]="widget.widget_under_title_description"
+  ></app-widget-weather>
+
+  <iframe
+    style="border: none; min-height: fit-content"
+    *ngIf="widget.widget_type == widgetType.IFrame"
+    is="x-frame-bypass"
+    width="100%"
+    height="100%"
+    [src]="widget.ref_source_id! | safe"
+  ></iframe>
+
+  <app-widget-html
+    *ngIf="widget.widget_type == widgetType.Html"
+    [content]="widget.html_template!"
+    [widget_under_title_description]="widget.widget_under_title_description"
+  ></app-widget-html>
+</div>
+
+<ngx-ui-loader [loaderId]="widget.id!"></ngx-ui-loader>

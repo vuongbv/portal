@@ -1,0 +1,155 @@
+<div class="layout-topbar border-bottom-2 surface-border">
+  <div
+    class="flex align-items-stretch justify-content-center surface-border border-right-2 border-left-2 h-5rem w-3rem"
+  >
+    <i
+      #menubutton
+      class="align-self-center flex align-items-center justify-content-center pi"
+      style="font-size: 1.3rem; cursor: pointer"
+      [ngClass]="{
+        'pi-angle-double-left': showMenu,
+        'pi-angle-double-right': !showMenu
+      }"
+      (click)="onMenuToggle()"
+    ></i>
+  </div>
+
+  <a class="layout-topbar-logo ml-2" routerLink="">
+    <img src="assets/layout/images/solar-full-sun-colored.svg" alt="logo" />
+    <span class="app-name">{{ displayAppName }}</span>
+  </a>
+  <!-- <a class="layout-topbar-logo ml-2" >
+    Solar Energy Management
+  </a> -->
+
+  <button
+    #topbarmenubutton
+    class="p-link layout-topbar-menu-button layout-topbar-button"
+    (click)="layoutService.showProfileSidebar()"
+  >
+    <i class="pi pi-ellipsis-v"></i>
+  </button>
+
+  <div
+    #topbarmenu
+    class="layout-topbar-menu"
+    [ngClass]="{
+      'layout-topbar-menu-mobile-active':
+        layoutService.state.profileSidebarVisible
+    }"
+  >
+    <div
+      class="flex align-items-stretch justify-content-center surface-border border-right-2 border-left-2 h-5rem w-3rem"
+    >
+      <button
+        class="p-link align-self-center flex align-items-center justify-content-center"
+        (click)="op.toggle($event)"
+      >
+        <img src="assets/layout/images/dropdown.svg" />
+      </button>
+      <p-overlayPanel #op [showCloseIcon]="false" [style]="{ width: '450px' }">
+        <div class="grid">
+          <div
+            *ngIf="isTenantAdmin"
+            class="flex align-items-center justify-content-start col-3 flex-column"
+          >
+            <i class="pi pi-fw pi-clock mb-2"></i>
+            <a class="text-center" href="{{ adminUrl }}" target="_blank">
+              Tenant Admin
+            </a>
+          </div>
+          <div
+            class="flex align-items-center justify-content-start col-3 flex-column"
+            *ngFor="let item of applications"
+          >
+            <i class="pi pi-fw pi-clock mb-2"></i>
+            <a class="text-center" [routerLink]="item.value">
+              {{ item.name }}
+            </a>
+          </div>
+        </div>
+        <!-- <div class="grid">
+          <div class="col-4" *ngIf="!isNusUser">
+            <ul class="layout-menu">
+              <li class="">
+                <div
+                  class="border-round-md flex align-items-center h-2rem application-block"
+                >
+                  <i class="pi pi-fw pi-apple"> </i>
+                  <a class="text-center" [routerLink]="'/'">
+                    Construction Monitoring
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="col-4" *ngIf="!isNusUser">
+            <ul class="layout-menu">
+              <li class="">
+                <div
+                  class="border-round-md flex align-items-center h-2rem application-block"
+                >
+                  <i class="pi pi-fw pi-android"> </i>
+                  <a class="text-center" [routerLink]="'/'"> DC Monitoring </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="col-4" *ngIf="!isNusUser">
+            <ul class="layout-menu">
+              <li class="">
+                <div
+                  class="border-round-md flex align-items-center application-block"
+                >
+                  <i class="pi pi-fw pi-desktop"> </i>
+                  <a class="text-center" [routerLink]="'/'">
+                    Device Management
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="col-4" *ngIf="!isNusUser"></div>
+          <div class="col-4" *ngIf="!isNusUser">
+            <ul class="layout-menu">
+              <li class="">
+                <div
+                  class="border-round-md flex align-items-center h-2rem application-block"
+                >
+                  <i class="pi pi-fw pi-share-alt"> </i>
+                  <a class="text-center" [routerLink]="'/'"> Smart Hygiene </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div> -->
+      </p-overlayPanel>
+    </div>
+
+    <a class="top-bar-panel ml-2">
+      {{ userName?.email }}
+      <div
+        class="flex align-items-stretch justify-content-center surface-border border-right-2 border-left-2 h-5rem w-4rem"
+      >
+        <button
+          class="p-link align-self-center flex align-items-center justify-content-center"
+          label="Show"
+          (click)="menu.toggle($event)"
+        >
+          <img src="assets/layout/images/user.svg" />
+        </button>
+      </div>
+      <p-tieredMenu
+        #menu
+        [model]="items"
+        [popup]="true"
+        [appendTo]="'body'"
+      ></p-tieredMenu>
+    </a>
+
+    <!-- <button class="p-link layout-topbar-button" [routerLink]="'/documentation'">
+      <i class="pi pi-cog"></i>
+      <span>Settings</span>
+    </button> -->
+  </div>
+</div>

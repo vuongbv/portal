@@ -1,0 +1,19 @@
+<app-title-tooltip
+  [title]="title"
+  [description]="description"
+  [widget_under_title_description] = "widget_under_title_description"
+></app-title-tooltip>
+<div class="grid formgrid mt-5">
+  <div class="col-12 lg:col-12 mt-7">
+    <app-bullet-chart
+      title="Enclousure"
+      [series]="enclousureSeries"
+    ></app-bullet-chart>
+  </div>
+  <div class="col-12 lg:col-12 mt-7">
+    <app-bullet-chart
+      title="Solar Charge Controller"
+      [series]="SolarSeries"
+    ></app-bullet-chart>
+  </div>
+</div>

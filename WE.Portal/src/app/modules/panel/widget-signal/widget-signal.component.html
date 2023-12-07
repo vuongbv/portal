@@ -1,0 +1,36 @@
+<div class="mb-2" [ngStyle]="{ 'height.rem': height! * 7.3 }">
+  <app-title-tooltip
+    [title]="title"
+    [description]="description"
+    [date] = "dateTime"
+    [widget_under_title_description] = "widget_under_title_description"
+  ></app-title-tooltip>
+  <div class="grid formgrid">
+    <div class="flex col-12 h-8rem">
+      <div class="lg:col-5 ml-5">
+        <app-signals-streng [strength]="fivegStreng"></app-signals-streng>
+      </div>
+      <div class="lg:col-7">
+        <div
+          class="text-900 font-medium"
+          [ngClass]="{
+            'text-green-500': fivegStreng > 3,
+            'text-yellow-500': fivegStreng <= 3,
+            'text-red-500': fivegStreng < 2
+          }"
+        >
+          {{ status }}
+        </div>
+        <div class="text-900 font-medium">
+          {{ dateTime | date : "dd-MM-yyyy HH:mm" }}
+        </div>
+      </div>
+    </div>
+    <div class="flex col-12 justify-content-end mt-3">
+      <span class="flex align-items-center justify-content-center ">
+        <i class="pi pi-clock"></i> <span class="ml-2 font-normal text-sm text-gray-400">Refreshes every  {{data_frequency}} </span>
+      </span>
+    </div>
+  </div>
+</div>
+
